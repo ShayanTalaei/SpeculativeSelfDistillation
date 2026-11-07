@@ -1,0 +1,52 @@
+# SSD on ScienceQA (SciKnowEval Chemistry L3): two A100 80GB (student GPU 0, teacher GPU 1).
+
+method: ssd
+task: scienceqa
+gpus: 0,1
+dataset: scratch/data/builds/scienceqa
+eval_data: scratch/data/scienceqa/eval.json
+train:
+  engine: paired_vllm
+  # Token routing: the teacher takes over when the divergence exceeds the threshold
+  routing_strategy: kl_switch
+  kl_direction: reverse
+  kl_threshold: 1.0
+  alpha: 0.0
+  loss_mask_strategy: all
+  # Effective batch 8
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 8
+  steps_per_generation: 8
+  # Generation
+  temperature: 1.0
+  top_k: 20
+  top_p: 1.0
+  max_prompt_length: 2048
+  max_completion_length: 1024
+  rollout_max_new_tokens: 1024
+  eval_max_new_tokens: 1024
+  # Optimization
+  learning_rate: 5.0e-5
+  warmup_ratio: 0.1
+  lr_scheduler_type: cosine
+  max_grad_norm: 1.0
+  num_train_epochs: 4
+  max_steps: 1336
+  gradient_checkpointing: true
+  # Teacher: EMA of the student, alpha 0.01 after every optimizer step
+  sync_ref_model: true
+  ref_model_mixup_alpha: 0.01
+  ref_model_sync_steps: 1
+  verify_frozen_teacher: false
+  # Lockstep paired vLLM
+  vllm_gpu_memory_utilization: 0.8
+  paired_capacity: 65536
+  paired_token_budget: 16384
+  # Online evaluation
+  eval_scoring: evals.scorers:science_xml_match_scorer
+  eval_scoring_kwargs: {}
+  eval_every_n_steps: 100
+  # Run records
+  record_step_timing: true
+  save_strategy: "no"
+  save_final_model: false

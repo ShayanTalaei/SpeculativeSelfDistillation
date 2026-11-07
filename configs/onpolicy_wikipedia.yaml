@@ -1,0 +1,51 @@
+# On-policy self-distillation on Wikipedia (Cyclone Ditwah): one A100 80GB.
+
+method: onpolicy
+task: wikipedia
+gpus: 0
+dataset: scratch/data/builds/wikipedia
+eval_data: scratch/data/wikipedia/eval.json
+train:
+  engine: vllm
+  routing_strategy: pure_student
+  alpha: 0.0
+  loss_mask_strategy: all
+  # Effective batch 8
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  steps_per_generation: 4
+  # Generation
+  temperature: 1.0
+  top_k: 20
+  top_p: 1.0
+  max_prompt_length: 4096
+  max_completion_length: 512
+  rollout_max_new_tokens: 512
+  eval_max_new_tokens: 512
+  # Optimization
+  learning_rate: 5.0e-5
+  warmup_ratio: 0.1
+  lr_scheduler_type: constant_with_warmup
+  max_grad_norm: 1.0
+  num_train_epochs: 8
+  max_steps: -1
+  gradient_checkpointing: false
+  # Teacher: frozen at the initial weights
+  sync_ref_model: false
+  ref_model_mixup_alpha: 0.0
+  ref_model_sync_steps: 1
+  verify_frozen_teacher: true
+  # Colocated vLLM for rollouts
+  vllm_gpu_memory_utilization: 0.3
+  vllm_kv_cache_memory_bytes: 2147483648
+  vllm_enable_sleep_mode: false
+  vllm_batch_weight_sync: true
+  vllm_importance_sampling_correction: true
+  # Online evaluation
+  eval_scoring: evals.online_eval:make_llm_judge_scorer
+  eval_scoring_kwargs: {judge_url: "http://127.0.0.1:18001/v1", judge_model: Qwen/Qwen3-4B-Instruct-2507}
+  eval_every_n_steps: 10
+  # Run records
+  record_step_timing: true
+  save_strategy: "no"
+  save_final_model: false

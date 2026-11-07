@@ -1,0 +1,19 @@
+# Environment and caches (setup.sh creates these)
+.venv
+.venv_home/
+scratch
+third_party/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Run outputs
+runs/
+wandb/
+*.log
+
+# Secrets
+.env
+.env.*

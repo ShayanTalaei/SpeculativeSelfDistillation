@@ -1,0 +1,18 @@
+# Pinned environment of the released runs. scripts/launch.py compares the
+# installed packages against these pins, warns on any mismatch, and records
+# both sets in <output>/versions.json. requirements.txt is the full lock.
+python: "3.12"
+cuda: "13.0"
+torch: 2.13.0
+vllm: 0.31.0
+transformers: 5.17.0
+trl: 1.16.0
+accelerate: 1.15.0
+peft: 0.21.2
+
+model: Qwen/Qwen3-4B-Instruct-2507
+model_revision: cdbee75f17c01a7cc42f958dc650907174af0554
+
+# ScienceQA (SciKnowEval Chemistry L3) source data, pinned in the SDFT authors' repo.
+scienceqa_repo: https://github.com/idanshen/Self-Distillation.git
+scienceqa_revision: d77573212fa0a3ae2eeb64b9b44db1c251f75e3e

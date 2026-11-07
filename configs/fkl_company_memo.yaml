@@ -1,0 +1,46 @@
+# Off-policy FKL on Company Memo: one A100 80GB, frozen-teacher targets sampled once before training.
+
+method: fkl
+task: company_memo
+gpus: 0
+dataset: scratch/data/builds/company_memo
+eval_data: scratch/data/company_memo/eval.json
+train:
+  loss: fkl
+  # Effective batch 8
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 2
+  drop_last_effective_batch: true
+  # Optimization
+  learning_rate: 5.0e-5
+  warmup_ratio: 0.1
+  lr_scheduler_type: constant_with_warmup
+  max_grad_norm: 1.0
+  weight_decay: 0.0
+  num_train_epochs: 31
+  gradient_checkpointing: false
+  # Sequence lengths (prompt + completion, tokens)
+  max_student_len: 4608
+  max_teacher_len: 4608
+  temperature: 1.0
+  chat_template_kwargs: {enable_thinking: false}
+  # Teacher targets: one completion per prompt, sampled once before training
+  target_temperature: 1.0
+  target_top_k: 20
+  target_top_p: 1.0
+  target_max_new_tokens: 512
+  verify_frozen_teacher: true
+  # Online evaluation (the same vLLM engine also samples the targets)
+  eval_scoring: evals.online_eval:make_llm_judge_scorer
+  eval_scoring_kwargs: {judge_url: "http://127.0.0.1:18001/v1", judge_model: Qwen/Qwen3-4B-Instruct-2507}
+  eval_every_n_steps: 25
+  eval_max_new_tokens: 512
+  eval_max_num_seqs: 64
+  eval_max_model_len: null
+  vllm_gpu_memory_utilization: 0.3
+  vllm_kv_cache_memory_bytes: 6442450944
+  vllm_batch_weight_sync: true
+  # Run records
+  record_step_timing: true
+  save_strategy: "no"
+  save_final_model: false
