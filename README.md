@@ -183,17 +183,23 @@ In every task the teacher's privileged context is the question's reference answe
 └── assets/                  # figures used in this README
 ```
 
+## Contributors
+
+Shayan Talaei ([@ShayanTalaei](https://github.com/ShayanTalaei)), Agam Bhatia
+([@agu18dec](https://github.com/agu18dec)), Arshia Soltani Moakhar, Jonas Hübotter,
+Amin Saberi and Azalia Mirhoseini.
+
 ## Citation
 
 ```bibtex
 @misc{talaei2026speculativeselfdistillationenablesefficient,
-      title={Speculative Self-Distillation enables Efficient Knowledge Internalization}, 
+      title={Speculative Self-Distillation enables Efficient Knowledge Internalization},
       author={Shayan Talaei and Agam Bhatia and Arshia Soltani Moakhar and Jonas Hübotter and Amin Saberi and Azalia Mirhoseini},
       year={2026},
       eprint={2611.12016},
       archivePrefix={arXiv},
       primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2611.12016}, 
+      url={https://arxiv.org/abs/2611.12016},
 }
 ```
 
