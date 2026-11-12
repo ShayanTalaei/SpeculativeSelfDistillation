@@ -12,7 +12,7 @@ Speculative Self-Distillation
 </p>
 
 <p align="center">
-| 🌐 <a href="https://ssd-distill.github.io/"><b>Project Page</b></a> | 🛠️ <a href="#reproducing-the-paper"><b>Reproduce</b></a> | 📚 <a href="#citation"><b>Citation</b></a> |
+| 📄 <a href="https://arxiv.org/abs/2611.12016"><b>Paper</b></a> | 🌐 <a href="https://ssd-distill.github.io/"><b>Project Page</b></a> | 🛠️ <a href="#reproducing-the-paper"><b>Reproduce</b></a> | 📚 <a href="#citation"><b>Citation</b></a> |
 </p>
 
 🔥 **Speculative Self-Distillation (SSD)** trains a language model to internalize
@@ -186,12 +186,14 @@ In every task the teacher's privileged context is the question's reference answe
 ## Citation
 
 ```bibtex
-@inproceedings{talaei2026ssd,
-  title     = {Speculative Self-Distillation enables Efficient Knowledge Internalization},
-  author    = {Talaei, Shayan and Bhatia, Agam and Soltani Moakhar, Arshia and
-               H{\"u}botter, Jonas and Saberi, Amin and Mirhoseini, Azalia},
-  booktitle = {Advances in Neural Information Processing Systems},
-  year      = {2026}
+@misc{talaei2026speculativeselfdistillationenablesefficient,
+      title={Speculative Self-Distillation enables Efficient Knowledge Internalization}, 
+      author={Shayan Talaei and Agam Bhatia and Arshia Soltani Moakhar and Jonas Hübotter and Amin Saberi and Azalia Mirhoseini},
+      year={2026},
+      eprint={2611.12016},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2611.12016}, 
 }
 ```
 
