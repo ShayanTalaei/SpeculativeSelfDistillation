@@ -136,7 +136,7 @@ Joint decoding runs at about 92% of the throughput of student-only decoding, so
 an SSD step costs about as much as an on-policy step.
 
 <p align="center">
-  <img alt="Accuracy against training time on Science Q&amp;A" src="assets/training_time.png" width="45%">
+  <img alt="Accuracy against training time on Science Q and A" src="assets/training_time.png" width="45%">
 </p>
 
 ## Data
